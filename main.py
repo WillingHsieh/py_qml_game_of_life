@@ -5,6 +5,7 @@ from PySide6.QtCore import QObject, Slot, Signal, Property
 from PySide6.QtGui import QGuiApplication
 from PySide6.QtQml import QQmlApplicationEngine, qmlRegisterType
 import random
+from threading import Timer
 
 from db import *
 
@@ -18,6 +19,10 @@ class Cells(QObject):
     def __init__(self):
         super().__init__()
 
+        # 計時器
+        self.tm_interval = 0.4
+        self.timer = None
+
         # ==== 設定參數 ====
 
         self.__rows = 11
@@ -28,9 +33,9 @@ class Cells(QObject):
         self.__cols = 51
         self.__len = 20
 
-        # self.__rows = 111
-        # self.__cols = 111
-        # self.__len = 9
+        self.__rows = 111
+        self.__cols = 111
+        self.__len = 9
 
         # 格子總數
         self.__count = self.__rows * self.__cols
@@ -194,18 +199,57 @@ class Cells(QObject):
         for idx in range( self.__count):
             self.set_data( idx, False)
 
-    # 跌代
-    @Slot()
-    def step(self):
-        pass
-
     @Slot()
     def stop(self):
         pass
 
+    # 有幾個鄰居活著？
+    def get_around_count(self, idx):
+        count = 0
+        # for i in self.get_around_nbs( idx):
+        for i in self.__data_nbs[idx]:
+            if self.__data[ i]:
+                count += 1
+        return count
+
+    # 評估格子是否存活
+    # 1. 如果一個細胞周圍有三個活著的細胞，那麼它在下一輪會變成活著的狀態；
+    # 2. 如果一個細胞周圍有兩個活著的細胞，那麼它的狀態不變；
+    # 3. 在其它情況下，一個細胞在下一輪會變成死亡狀態。
+    def is_life(self, idx):
+        count = self.get_around_count(idx)
+        if count == 3:
+            return True
+        if count == 2:
+            return self.__data[ idx]
+        return False
+    # 跌代
+    @Slot()
+    def step(self):
+        # 計算結果存放到 __data_next
+        for idx in range(self.__count):
+            self.__data_next[ idx] = self.is_life( idx)
+
+        # __data_next 回存到 __data
+        self.restore_data()
+
+    # 主要執行入口
+    def run(self):
+        # self.shift_right()
+        self.step()
+
+        self.timer = Timer(self.tm_interval, self.run)
+        self.timer.start()
+
     @Slot()
     def begin(self):
         print( "begin()...")
+        if self.timer:
+            self.timer.cancel()
+            self.timer = None
+        else:
+            self.timer = Timer(self.tm_interval, self.run)
+            self.timer.start()
 
     @Slot()
     def speed_up(self):
