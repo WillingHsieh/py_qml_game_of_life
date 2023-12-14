@@ -201,7 +201,10 @@ class Cells(QObject):
 
     @Slot()
     def stop(self):
-        pass
+        print( "stop()...")
+        if self.timer is not None:
+            self.timer.cancel()
+            self.timer = None
 
     # 有幾個鄰居活著？
     def get_around_count(self, idx):
@@ -253,11 +256,13 @@ class Cells(QObject):
 
     @Slot()
     def speed_up(self):
-        pass
+        self.tm_interval /= 2
+        print( "speed_up...", self.tm_interval)
 
     @Slot()
     def speed_down(self):
-        pass
+        self.tm_interval *= 2
+        print("speed_down...", self.tm_interval)
 
     # ==== 平移 ====
 

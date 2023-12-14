@@ -11,8 +11,9 @@ Window {
         on_Cell_changed: {
             var idx = arguments[0]
             var val = arguments[1]
-    //            console.log( idx, val)
-            rpCells.itemAt( idx)._is_live = val
+//                console.log( idx, val)
+            if( rpCells )
+                rpCells.itemAt( idx)._is_live = val
         }
     }
 
