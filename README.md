@@ -14,3 +14,51 @@
 
 以上轉載自維基百科：https://zh.wikipedia.org/wiki/康威生命游戏
 
+專案特點：
+
+  * 非常簡潔：
+    。只有 python 跟 QML 檔案，直接執行 main.py 即可
+    。資料庫使用 sqlite3, 自動產生資料檔，自動創建資料表
+  * 可在程式碼修改運算矩陣大小，格子大小。
+* UI界面
+    。可按百分比隨機產生有顏色的格子
+    。可將地圖布局存檔/載入/刪除
+    。滑鼠點擊編輯地圖
+    。開始/暫停
+    。單部執行
+    。加速/減速運行速度
+    。地圖上下左右平移功能
+
+目前測試通過的平台
+
+  * Mac OSX 14 + Python 3.11.6 
+
+by English...
+
+The Game of Life, also known simply as Life, is a cellular automaton devised by the 
+British mathematician John Horton Conway in 1970.[1] It is a zero-player game,[2][3] meaning that 
+its evolution is determined by its initial state, requiring no further input. 
+One interacts with the Game of Life by creating an initial configuration and observing how it evolves. 
+It is Turing complete and can simulate a universal constructor or any other
+
+The above is reproduced from Wikipedia: https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life
+
+Project features:
+
+   * Very concise:
+     . There are only python and QML files, just execute main.py directly
+     . The database uses sqlite3 to automatically generate data files and automatically create data tables.
+   * The operation matrix size and grid size can be modified in the program code.
+   * UI interface
+        . Colored grids can be randomly generated based on percentages
+        . Map layout can be save/loaded/delete
+        . Click with mouse to edit map
+        . start/pause
+        . Step execution
+        . Accelerate/Decelerate running speed
+        . Map can be shifted up, down, left and right
+
+Currently tested platforms
+
+   * Mac OSX 14 + Python 3.11.6
+   * 

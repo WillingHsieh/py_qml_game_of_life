@@ -195,6 +195,10 @@ class Cells(QObject):
             self.set_data( ii, True)
 
     @Slot()
+    def clear(self):
+        self.data_clear()
+        self.data_next_clear()
+
     def data_clear(self):
         for idx in range( self.__count):
             self.set_data( idx, False)

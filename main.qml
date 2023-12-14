@@ -12,7 +12,7 @@ Window {
             var idx = arguments[0]
             var val = arguments[1]
 //                console.log( idx, val)
-            if( rpCells )
+//            if( rpCells )
                 rpCells.itemAt( idx)._is_live = val
         }
     }
@@ -109,7 +109,7 @@ Window {
                 Button {
                     text: qsTr("清空")
                     onClicked: {
-                        cells.data_clear()
+                        cells.clear()
                     }
                 }
 
